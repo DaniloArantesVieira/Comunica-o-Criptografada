@@ -132,15 +132,3 @@ De forma geral, o projeto parece seguir este fluxo:
 - Estrutura consistente para laboratório e apresentação acadêmica.
 - Facilidade para evoluir o projeto futuramente.
 
-## Melhorias sugeridas
-
-Algumas melhorias que deixariam o repositório ainda mais profissional:
-
-- adicionar um `.gitignore` na raiz;
-- incluir uma seção com **arquitetura do sistema**;
-- documentar as portas e serviços expostos;
-- adicionar instruções detalhadas de geração e armazenamento de certificados;
-- incluir exemplos de execução esperada e logs de sucesso;
-- criar uma pasta `docs/` para diagramas e imagens;
-- explicar no README como cada módulo criptográfico participa do fluxo.
-
