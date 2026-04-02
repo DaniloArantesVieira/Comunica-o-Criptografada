@@ -1,0 +1,65 @@
+services:
+  ca:
+    build: ./ca
+    container_name: ca
+    volumes:
+      - certs:/certs
+
+  server:
+    build: ./server
+    container_name: server
+    depends_on:
+      - ca
+    volumes:
+      - certs:/certs
+    cap_add:
+      - NET_ADMIN
+    devices:
+      - /dev/net/tun
+    ports:
+      - "1194:1194/udp"
+
+  client_norte:
+    build: ./client
+    container_name: client_norte
+    environment:
+      CLIENT_NAME: cliente_norte
+    depends_on:
+      - server
+    volumes:
+      - certs:/certs
+    cap_add:
+      - NET_ADMIN
+    devices:
+      - /dev/net/tun
+
+  client_sul:
+    build: ./client
+    container_name: client_sul
+    environment:
+      CLIENT_NAME: cliente_sul
+    depends_on:
+      - server
+    volumes:
+      - certs:/certs
+    cap_add:
+      - NET_ADMIN
+    devices:
+      - /dev/net/tun
+
+  app_server:
+    build: ./app
+    container_name: app_server
+    depends_on:
+      - server
+    command: ["python", "message_server.py"]
+
+  app_client:
+    build: ./app
+    container_name: app_client
+    depends_on:
+      - app_server
+    command: ["python", "message_client.py"]
+
+volumes:
+  certs:
